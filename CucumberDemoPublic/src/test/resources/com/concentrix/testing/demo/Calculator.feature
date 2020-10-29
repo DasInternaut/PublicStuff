@@ -1,9 +1,7 @@
 Feature: Demonstrate Cucumber
 
-Requirement: Add two numbers
-Requirement: BBC News can be accessed from the BBC page.
-Requirement: BBC Weather can be accessed from the BBC News Page.
-Requirement: Glorious sunshine for Stockport!!!
+# Test Cucumber file. Adds two numbers, then goes off and gets the 
+# weather.  Test 2
 
 	Scenario: Adding two numbers
 		Given I have a calculator
@@ -25,6 +23,6 @@ Requirement: Glorious sunshine for Stockport!!!
 		Given I'm at the "Weather" page
 		And I enter "SK8 4HZ" into the "Post Code" field
 		When I click "Post Code Search"
-		Then I see "Glorious Sunshine"
+		Then I see "Light rain"
 
   

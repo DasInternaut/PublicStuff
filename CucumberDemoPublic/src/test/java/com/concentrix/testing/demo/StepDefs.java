@@ -1,3 +1,7 @@
+// This is the code that binds the simple Gherkin language
+// to actionable Java that sits below the overall test
+// automation framework.
+
 package com.concentrix.testing.demo;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -24,40 +28,61 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class StepDefs {
+
 	
+// Calculator is a simple calculator app copied/modieifed when going through a 
+// Cucumber training course on Pluralsight.
 	Calculator calculator;
 	Integer result;
 	boolean isInitialised = false;
+
+// Actor simulates the actions of a web user and includes data about the system
+// under tests.  For example, if we say User clicks on the "Weather Link", the 
+// Actor class contains information on the locator requried for the Weather link.
+
 	Actor user = new Actor();
 	static WebDriver driver;
 	int counter = 0;
+
+// Initialised sets an important piece of state information for the Cucumber/
+// Selenium testing,
 
 	private void setInitialised() {
 		driver = user.getDriver();
 		isInitialised = true;
 	}
+
+// The first few step definitions apply to the Calculator testing example.  
+// Note how java code (the stubs are actually generated and then filled in)
+// has naming similar to the Gherkin test steps.	
 	
 	@Given("I have a calculator")
 	public void i_have_a_calculator() {
 	    // Write code here that turns the phrase above into concrete actions
 	    calculator = new Calculator();
-	    counter++;
+//	    counter++;
 	    System.out.println("-------------- Counter = " + counter);
 	}
+
+// Going back to the Gherkin, this shows how specific words or numbers within
+// the Gherkin code can be picked out (using a Cucumber regular expression in
+// this instance) and used as parameters.
 
 	@When("I add {int} and {int}")
 	public void i_add_and(Integer a, Integer b) {
 	    result = calculator.add(a,b);
-	    counter++;
+//	    counter++;
 	    System.out.println("-------------- Counter = " + counter);
 	}
 
 	@Then("I should get {int}")
 	public void i_should_get(Integer expectedResult) {
-	    counter++;
+//	    counter++;
 	    System.out.println("-------------- Counter = " + counter);
 	    assertThat(result).isEqualTo(expectedResult);
 	}
+
+//  Start of Selenium test steps. This is where Initialised is established.
 	
 	@Given("I have a web browser")
 	public void i_have_a_web_browser() {
@@ -66,10 +91,12 @@ public class StepDefs {
 	    }
 	}
 
+//  Maps to And I've navigated to "https://www.bbc.co.uk" in the Gherikin
+
 	@Given("I've navigated to {string}")
 	public void i_ve_navigated_to(String url) {
 	    //driver.get(url);
-	    counter++;
+//	    counter++;
 	    System.out.println("-------------- Counter = " + counter);
 		user.navigateURL(url);
 		try {
@@ -83,7 +110,7 @@ public class StepDefs {
 
 	@When("I click {string}")
 	public void i_click(String string) {
-	    counter++;
+//	    counter++;
 	    System.out.println("-------------- Counter = " + counter);
 		assertTrue(user.clickOnSomething(string));
 		//driver.findElement(By.xpath("//*[@id=\"orb-nav-links\"]/ul/li[2]/a")).click();

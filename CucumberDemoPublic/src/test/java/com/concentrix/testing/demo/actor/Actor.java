@@ -13,6 +13,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -27,6 +28,49 @@ public class Actor {
 	static String driverLocation = "/home/ivbbuild/bin/chromedriver";
 	
 	public WebDriver getDriver () {
+		System.setProperty("webdriver.chrome.driver", driverLocation);
+		DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("test-type");
+		options.addArguments("--start-maximized");
+		options.addArguments("--disable-web-security");
+		options.addArguments("--allow-running-insecure-content");
+		options.addArguments("disable-infobars");
+		options.addArguments("--no-sandbox");
+		options.addArguments("--disable-dev-shm-usage");
+		Map<String, Object> prefs = new HashMap<String, Object>();
+		prefs.put("credentials_enable_service", false);
+		prefs.put("profile.password_manager_enabled", false);
+		options.setExperimentalOption("prefs", prefs);
+			        
+		capabilities.setCapability("chrome.binary","./src//lib//chromedriver");
+		capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+		
+		driver = new ChromeDriver(capabilities);
+        
+        //Put a Implicit wait, this means that any search for elements on the page could take the time the implicit wait is set for before throwing exception
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        setElements();
+        this.driver = driver;
+		return driver;
+	}
+	
+	public WebDriver getDriver (String browser) {
+		
+		switch (browser) {
+		case "Chrome": {
+			return getDriver();
+		}
+		case "Firefox": {
+		    System.setProperty("webdriver.gecko.driver", "/home/ivbbuild/bin/geckodriver");	                
+	        driver = new FirefoxDriver();
+		    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		    setElements();
+		    this.driver=driver;
+		    return driver;
+		}
+		}
+		
 		System.setProperty("webdriver.chrome.driver", driverLocation);
 		DesiredCapabilities capabilities = DesiredCapabilities.chrome();
 		ChromeOptions options = new ChromeOptions();

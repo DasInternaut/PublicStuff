@@ -25,6 +25,7 @@ public class Actor {
 	protected Map <String, String> elements = new HashMap<String, String>();
 	protected Map <String, String> locationCriteria = new HashMap<String, String>();
 	static WebDriver driver;
+	private static String OS = System.getProperty("os.name").toLowerCase();
 	static String driverLocation = "/home/ivbbuild/bin/chromedriver";
 	
 	public WebDriver getDriver () {
@@ -54,6 +55,33 @@ public class Actor {
         this.driver = driver;
 		return driver;
 	}
+
+	private WebDriver getFireFox() {
+		System.out.println("The OS is " + OS);
+		if (isMac()) {
+			System.out.println("XXXXXXXXXXXXXXXXXXXXXX WE ARE MAC XXXXXXXXXXXXXXXXXXXXX");
+			// System.setProperty("webdriver.gecko.driver", "/Users/Shared/ivbbuild/bin/geckodriver");
+			System.setProperty("webdriver.gecko.driver", "/Users/jasonhindle/bin/geckodriver");
+			// System.setProperty("webdriver.firefox.bin","/Applications/Firefox.app/Contents/MacOS/firefox-bin");	                
+			driver = new FirefoxDriver();
+		    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		    setElements();
+		    this.driver=driver;
+		    return driver;
+		}
+
+		if (isUnix()) {
+			System.setProperty("webdriver.gecko.driver", "/home/ivbbuild/bin/geckodriver");
+			// System.setProperty("webdriver.firefox.bin","/Applications/Firefox.app/Contents/MacOS/firefox-bin");	                
+			driver = new FirefoxDriver();
+		    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		    setElements();
+		    this.driver=driver;
+		    return driver;
+		}
+
+		return null;
+	}
 	
 	public WebDriver getDriver (String browser) {
 		
@@ -62,12 +90,7 @@ public class Actor {
 			return getDriver();
 		}
 		case "Firefox": {
-		    System.setProperty("webdriver.gecko.driver", "/home/ivbbuild/bin/geckodriver");	                
-	        driver = new FirefoxDriver();
-		    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		    setElements();
-		    this.driver=driver;
-		    return driver;
+			return getFireFox();
 		}
 		}
 		
@@ -229,4 +252,28 @@ public class Actor {
 		System.out.println("Don't see the text " + string + "Which resolved to " + textToLookFor);
 		return false;
 	}
+
+	public static boolean isWindows() {
+
+        return (OS.indexOf("win") >= 0);
+
+    }
+
+    public static boolean isMac() {
+
+        return (OS.indexOf("mac") >= 0);
+
+    }
+
+    public static boolean isUnix() {
+
+        return (OS.indexOf("nix") >= 0 || OS.indexOf("nux") >= 0 || OS.indexOf("aix") > 0 );
+        
+    }
+
+    public static boolean isSolaris() {
+
+        return (OS.indexOf("sunos") >= 0);
+
+    }
 }

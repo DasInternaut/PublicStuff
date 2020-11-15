@@ -59,7 +59,6 @@ public class Actor {
 	private WebDriver getFireFox() {
 		System.out.println("The OS is " + OS);
 		if (isMac()) {
-			System.out.println("XXXXXXXXXXXXXXXXXXXXXX WE ARE MAC XXXXXXXXXXXXXXXXXXXXX");
 			// System.setProperty("webdriver.gecko.driver", "/Users/Shared/ivbbuild/bin/geckodriver");
 			System.setProperty("webdriver.gecko.driver", "/Users/jasonhindle/bin/geckodriver");
 			// System.setProperty("webdriver.firefox.bin","/Applications/Firefox.app/Contents/MacOS/firefox-bin");	                
@@ -79,6 +78,10 @@ public class Actor {
 		    this.driver=driver;
 		    return driver;
 		}
+
+		//Now this is nasty.  I should probably raise my own exception in this instance
+		//but hey ho, it's muy code and it's not meant to be any of oven, microwave or
+		//production ready.
 
 		return null;
 	}

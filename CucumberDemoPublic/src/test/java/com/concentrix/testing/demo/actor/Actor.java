@@ -79,11 +79,7 @@ public class Actor {
 		    return driver;
 		}
 		
-		//Now this is nasty.  I should probably raise my own exception in this instance
-		//but hey ho, it's muy code and it's not meant to be any of oven, microwave or
-		//production ready.
-
-		return null;
+		throw new RuntimeException ("Operating system not supported: " + OS );
 	}
 	
 	private WebDriver getChrome() {
@@ -106,11 +102,7 @@ public class Actor {
 		    return driver;
 		}
 		
-		//Now this is nasty.  I should probably raise my own exception in this instance
-		//but hey ho, it's muy code and it's not meant to be any of oven, microwave or
-		//production ready.
-
-		return null;
+		throw new RuntimeException ("Operating system not supported: " + OS );
 	}
 	
 	
@@ -124,32 +116,9 @@ public class Actor {
 			return getFireFox();
 		}
 		}
+
+		throw new RuntimeException ("Driver not supported: " + browser );
 		
-		System.setProperty("webdriver.chrome.driver", driverLocation);
-		DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-		ChromeOptions options = new ChromeOptions();
-		options.addArguments("test-type");
-		options.addArguments("--start-maximized");
-		options.addArguments("--disable-web-security");
-		options.addArguments("--allow-running-insecure-content");
-		options.addArguments("disable-infobars");
-		options.addArguments("--no-sandbox");
-		options.addArguments("--disable-dev-shm-usage");
-		Map<String, Object> prefs = new HashMap<String, Object>();
-		prefs.put("credentials_enable_service", false);
-		prefs.put("profile.password_manager_enabled", false);
-		options.setExperimentalOption("prefs", prefs);
-			        
-		capabilities.setCapability("chrome.binary","./src//lib//chromedriver");
-		capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-		
-		driver = new ChromeDriver(capabilities);
-        
-        //Put a Implicit wait, this means that any search for elements on the page could take the time the implicit wait is set for before throwing exception
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        setElements();
-        this.driver = driver;
-		return driver;
 	}
 	
 	//driver.findElement(By.cssSelector("a[href*='/prepaid/weboam/barred/']")).click();

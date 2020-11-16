@@ -78,7 +78,7 @@ public class Actor {
 		    this.driver=driver;
 		    return driver;
 		}
-
+		
 		//Now this is nasty.  I should probably raise my own exception in this instance
 		//but hey ho, it's muy code and it's not meant to be any of oven, microwave or
 		//production ready.
@@ -86,11 +86,39 @@ public class Actor {
 		return null;
 	}
 	
+	private WebDriver getChrome() {
+		System.out.println("The OS is " + OS);
+		if (isMac()) {
+			System.setProperty("webdriver.chrome.driver", "/Users/Shared/ivbbuild/bin/chromedriver");
+            driver = new ChromeDriver();
+            driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+            setElements();
+            this.driver=driver;
+            return driver;
+		}
+
+		if (isUnix()) {
+			System.setProperty("webdriver.gecko.driver", "/home/ivbbuild/bin/chromedriver");
+			driver = new ChromeDriver();
+		    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		    setElements();
+		    this.driver=driver;
+		    return driver;
+		}
+		
+		//Now this is nasty.  I should probably raise my own exception in this instance
+		//but hey ho, it's muy code and it's not meant to be any of oven, microwave or
+		//production ready.
+
+		return null;
+	}
+	
+	
 	public WebDriver getDriver (String browser) {
 		
 		switch (browser) {
 		case "Chrome": {
-			return getDriver();
+			return getChrome();
 		}
 		case "Firefox": {
 			return getFireFox();

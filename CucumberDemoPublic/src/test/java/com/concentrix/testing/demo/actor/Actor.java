@@ -2,6 +2,8 @@
 
 package com.concentrix.testing.demo.actor;
 
+import com.concentrix.testing.demo.webauto.WebAuto;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -10,13 +12,12 @@ import org.openqa.selenium.By;
 //import org.openqa.selenium.JavascriptExecutor;
 //import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+
+//Number of things not needed at this time but may be importatnt as the demo progresses
+
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -27,102 +28,24 @@ public class Actor {
 	static WebDriver driver;
 	private static String OS = System.getProperty("os.name").toLowerCase();
 	static String driverLocation = "/home/ivbbuild/bin/chromedriver";
-	
-	public WebDriver getDriver () {
-		System.setProperty("webdriver.chrome.driver", driverLocation);
-		DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-		ChromeOptions options = new ChromeOptions();
-		options.addArguments("test-type");
-		options.addArguments("--start-maximized");
-		options.addArguments("--disable-web-security");
-		options.addArguments("--allow-running-insecure-content");
-		options.addArguments("disable-infobars");
-		options.addArguments("--no-sandbox");
-		options.addArguments("--disable-dev-shm-usage");
-		Map<String, Object> prefs = new HashMap<String, Object>();
-		prefs.put("credentials_enable_service", false);
-		prefs.put("profile.password_manager_enabled", false);
-		options.setExperimentalOption("prefs", prefs);
-			        
-		capabilities.setCapability("chrome.binary","./src//lib//chromedriver");
-		capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-		
-		driver = new ChromeDriver(capabilities);
-        
-        //Put a Implicit wait, this means that any search for elements on the page could take the time the implicit wait is set for before throwing exception
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        setElements();
-        this.driver = driver;
-		return driver;
+	private static WebAuto autoUtils = new WebAuto();
+
+	//The single confstructor for Actor sets up the environment
+
+	public Actor (String browser) {
+
 	}
 
-	private WebDriver getFireFox() {
-		System.out.println("The OS is " + OS);
-		if (isMac()) {
-			// System.setProperty("webdriver.gecko.driver", "/Users/Shared/ivbbuild/bin/geckodriver");
-			System.setProperty("webdriver.gecko.driver", "/Users/jasonhindle/bin/geckodriver");
-			// System.setProperty("webdriver.firefox.bin","/Applications/Firefox.app/Contents/MacOS/firefox-bin");	                
-			driver = new FirefoxDriver();
-		    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		    setElements();
-		    this.driver=driver;
-		    return driver;
-		}
-
-		if (isUnix()) {
-			System.setProperty("webdriver.gecko.driver", "/home/ivbbuild/bin/geckodriver");
-			// System.setProperty("webdriver.firefox.bin","/Applications/Firefox.app/Contents/MacOS/firefox-bin");	                
-			driver = new FirefoxDriver();
-		    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		    setElements();
-		    this.driver=driver;
-		    return driver;
-		}
-		
-		throw new RuntimeException ("Operating system not supported: " + OS );
+	public Actor () {
+		//Set up element definitions on construction.
+		setElements();
 	}
-	
-	private WebDriver getChrome() {
-		System.out.println("The OS is " + OS);
-		if (isMac()) {
-			System.setProperty("webdriver.chrome.driver", "/Users/Shared/ivbbuild/bin/chromedriver");
-            driver = new ChromeDriver();
-            driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-            setElements();
-            this.driver=driver;
-            return driver;
-		}
-
-		if (isUnix()) {
-			System.setProperty("webdriver.gecko.driver", "/home/ivbbuild/bin/chromedriver");
-			driver = new ChromeDriver();
-		    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		    setElements();
-		    this.driver=driver;
-		    return driver;
-		}
 		
-		throw new RuntimeException ("Operating system not supported: " + OS );
-	}
-	
-	
 	public WebDriver getDriver (String browser) {
-		
-		switch (browser) {
-		case "Chrome": {
-			return getChrome();
-		}
-		case "Firefox": {
-			return getFireFox();
-		}
-		}
-
-		throw new RuntimeException ("Driver not supported: " + browser );
-		
+		driver = autoUtils.getDriver(browser);
+		return driver;		
 	}
-	
-	//driver.findElement(By.cssSelector("a[href*='/prepaid/weboam/barred/']")).click();
-	
+		
 	private void setElements() {
 		//elements.put("News Link2", "xpath|//*[@id=\\\"orb-nav-links\\\"]/ul/li[2]/a");
 		//elements.put("News Link", "xpath|//*[@id=\"orb-nav-links\"]/ul/li[2]/a");
@@ -253,27 +176,4 @@ public class Actor {
 		return false;
 	}
 
-	public static boolean isWindows() {
-
-        return (OS.indexOf("win") >= 0);
-
-    }
-
-    public static boolean isMac() {
-
-        return (OS.indexOf("mac") >= 0);
-
-    }
-
-    public static boolean isUnix() {
-
-        return (OS.indexOf("nix") >= 0 || OS.indexOf("nux") >= 0 || OS.indexOf("aix") > 0 );
-        
-    }
-
-    public static boolean isSolaris() {
-
-        return (OS.indexOf("sunos") >= 0);
-
-    }
 }

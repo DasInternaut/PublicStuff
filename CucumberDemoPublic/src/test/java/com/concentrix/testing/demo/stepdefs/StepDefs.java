@@ -22,7 +22,7 @@ public class StepDefs {
 	static WebDriver driver;
 
 	private void setInitialised() {
-		driver = user.getDriver("Firefox");
+		driver = user.getDriver("Chrome");
 		isInitialised = true;
 	}
 	

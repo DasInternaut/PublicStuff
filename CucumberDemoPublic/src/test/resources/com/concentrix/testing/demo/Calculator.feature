@@ -26,11 +26,11 @@ Feature: Demonstrate Cucumber
 		When I click "Weather Link"
 		Then I'm taken to the "Weather" page
 	
-	Scenario: Light rain for a given post code
+	Scenario: Glorious sunshine for a given post code
 		Given I'm at the "Weather" page
 		And I enter "SK8 4HZ" into the "Post Code" field
 		When I click "Post Code Search"
-		Then I see "Light rain"
+		Then I see "Glorious Sunshine"
 
 # So how do we run this?  Quite simply run mvn clean verify 
 # (or right click on the POM and run verify in whatever IDE

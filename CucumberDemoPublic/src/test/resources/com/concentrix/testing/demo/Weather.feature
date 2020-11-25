@@ -22,6 +22,6 @@ Requirements: We want glorious sunshine every day.
 		Given I'm at the "Weather" page
 		And I enter "SK8 4HZ" into the "Post Code" field
 		When I click "Post Code Search"
-		Then I see "Light rain"
+		Then I see "Glorious Sunshine"
 
   

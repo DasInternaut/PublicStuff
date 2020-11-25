@@ -100,7 +100,7 @@ public class StepDefs {
 	@Then("I see {string}")
 	public void i_see(String string) {
 	    // Write code here that turns the phrase above into concrete actions
-//			assertTrue(user.lookForSomeText(string));
+				assertTrue(user.lookForSomeText(string));
 	}
 	
 }

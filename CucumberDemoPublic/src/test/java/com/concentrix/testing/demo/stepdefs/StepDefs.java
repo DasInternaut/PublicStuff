@@ -2,7 +2,6 @@ package com.concentrix.testing.demo.stepdefs;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import org.openqa.selenium.WebDriver;
 
@@ -20,9 +19,10 @@ public class StepDefs {
 	boolean isInitialised = false;
 	static Actor user = new Actor();
 	static WebDriver driver;
+	static String browser = "";
 
 	private void setInitialised() {
-		driver = user.getDriver("Chrome");
+		driver = user.getDriver(browser);
 		isInitialised = true;
 	}
 	
@@ -48,7 +48,15 @@ public class StepDefs {
 	public void i_have_a_web_browser() {
 	    if (!isInitialised) {
 	    	setInitialised();
-	    }
+		}
+	}
+
+	@Given("I have a {string} browser")
+	public void i_have_a_browser(String browser) {
+		StepDefs.browser = browser;
+		if (!isInitialised) {
+	    	setInitialised();
+		}
 	}
 
 	@Given("I've navigated to {string}")

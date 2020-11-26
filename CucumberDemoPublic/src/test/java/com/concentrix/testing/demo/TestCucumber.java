@@ -16,8 +16,9 @@ import net.serenitybdd.cucumber.CucumberWithSerenity;
 
 @RunWith(CucumberWithSerenity.class)
 @CucumberOptions(
- features = "src/test/resources/com/concentrix/testing/demo/Calculator.feature"
+ features = "src/test/resources/com/concentrix/testing/demo/GloriousSunshine.feature"
  ,glue={"com/concentrix/testing/demo/stepdefs"}
+ ,dryRun = false
 
 // If you're going through this starting with Calculator.feature, then
 // it should be obvious that feature is pointing right back at that.

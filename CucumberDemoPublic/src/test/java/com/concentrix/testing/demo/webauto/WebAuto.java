@@ -8,13 +8,11 @@ package com.concentrix.testing.demo.webauto;
 
 import java.util.concurrent.TimeUnit;
 
-import com.kenai.jffi.Platform.OS;
-
 //import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 //import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+//import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 //import org.openqa.selenium.interactions.Action;
 //import org.openqa.selenium.interactions.Actions;
@@ -22,15 +20,21 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 //import org.openqa.selenium.support.ui.ExpectedConditions;
 //import org.openqa.selenium.support.ui.WebDriverWait;
 
-import io.vavr.API.Match.Case;
-
 public class WebAuto {
  
     static WebDriver driver; 
 
+//Get the relevant environmet variables.  In this case used to set the
+//locations of chromedriver and geckodriver.  Can also be used for things
+//like config locations, logging locatons and so on.
+
     private static String chrome = System.getenv("BIN") + "/chromedriver";
     private static String gecko = System.getenv("BIN") + "/geckodriver";
     private static String OS = System.getProperty("os.name").toLowerCase();
+
+//The code in this constructor, and the methods it calls, below, is how we
+//determine the OS.  Since I worked out how to get the environment, the
+//end result (the OS property) is no longer used...
 
     public WebAuto () {
 
@@ -77,6 +81,8 @@ public class WebAuto {
 
         }
     }
+
+//The process of getting a Chrome driver is far simpler than my earlier days with this technology.
 
     private WebDriver getChrome() {
         System.setProperty("webdriver.chrome.driver", chrome);

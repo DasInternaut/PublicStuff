@@ -3,8 +3,6 @@ package com.concentrix.testing.demo.stepdefs;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
 
-import org.openqa.selenium.WebDriver;
-
 import com.concentrix.testing.demo.actor.Actor;
 import com.concentrix.testing.demo.calculator.Calculator;
 
@@ -18,11 +16,15 @@ public class StepDefs {
 	Integer result;
 	boolean isInitialised = false;
 	static Actor user = new Actor();
-	static WebDriver driver;
+	//static WebDriver driver;
 	static String browser = "";
 
+	//Note that driver isn't really used in the glue layer so, at some point,
+	//I will change Actor.getDriver to return true or false.
+
 	private void setInitialised() {
-		driver = user.getDriver(browser);
+		// driver = user.getDriver(browser);
+		assertTrue(user.SetDriver(browser));
 		isInitialised = true;
 	}
 	
@@ -101,7 +103,7 @@ public class StepDefs {
 	
 	@Given("I enter {string} into the {string} field")
 	public void i_enter_into_the_field(String string, String string2) {
-	    // Write code here that turns the phrase above into concrete actions
+	    // Write code here that turns the phrase above  into concrete action  s
 	    assertTrue(user.enterSomeText(string2, string));
 	}
 

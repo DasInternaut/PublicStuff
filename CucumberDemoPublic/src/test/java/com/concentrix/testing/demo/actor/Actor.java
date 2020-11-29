@@ -15,26 +15,19 @@ import org.openqa.selenium.WebDriver;
 
 //Number of things not needed at this time but may be importatnt as the demo progresses
 
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Action;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+//import org.openqa.selenium.WebElement;
+//import org.openqa.selenium.interactions.Action;
+//import org.openqa.selenium.interactions.Actions;
+//import org.openqa.selenium.support.ui.ExpectedConditions;
+//import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Actor {
 
 	protected Map <String, String> elements = new HashMap<String, String>();
 	protected Map <String, String> locationCriteria = new HashMap<String, String>();
 	static WebDriver driver;
-	private static String OS = System.getProperty("os.name").toLowerCase();
 	static String driverLocation = "/home/ivbbuild/bin/chromedriver";
 	private static WebAuto autoUtils = new WebAuto();
-
-	//The single confstructor for Actor sets up the environment
-
-	public Actor (String browser) {
-
-	}
 
 	public Actor () {
 		//Set up element definitions on construction.
@@ -44,6 +37,15 @@ public class Actor {
 	public WebDriver getDriver (String browser) {
 		driver = autoUtils.getDriver(browser);
 		return driver;		
+	}
+
+	public boolean SetDriver(String browser) {
+		driver = null;
+		driver = autoUtils.getDriver(browser);
+		if (driver != null) {
+			return true;
+		}
+		return false;
 	}
 		
 	private void setElements() {
@@ -175,5 +177,7 @@ public class Actor {
 		System.out.println("Don't see the text " + string + "Which resolved to " + textToLookFor);
 		return false;
 	}
+
+	
 
 }

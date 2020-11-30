@@ -178,6 +178,10 @@ public class Actor {
 		return false;
 	}
 
+	public void exterminate() {
+		driver.quit();
+	}
+
 	
 
 }

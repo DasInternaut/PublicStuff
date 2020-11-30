@@ -27,7 +27,7 @@ public class JHT3st {
     @BeforeClass
     public static void canIGetABrowser() {
         System.out.println("Inside canIGetABrowser");
-        driver = user.getDriver("Chrome");
+        driver = user.getDriver("Firefox");
     }
 
     @Test

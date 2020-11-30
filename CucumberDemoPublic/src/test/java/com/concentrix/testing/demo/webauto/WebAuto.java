@@ -33,10 +33,14 @@ public class WebAuto {
     private static String OS = System.getProperty("os.name").toLowerCase();
 
 //The code in this constructor, and the methods it calls, below, is how we
-//determine the OS.  Since I worked out how to get the environment, the
-//end result (the OS property) is no longer used...
+//determine the OS.  Since I worked out how to get the environment, it has
+//only really been required for Windows where we must append ".exe" to the 
+//Chrome variable.
 
     public WebAuto () {
+    	
+    	//The OS localisation stuff is just something I shameless copied off
+    	//t'interwebs and could probably be done quite a bit more elegantly.
 
         if (isMac()) {
             OS = "Mac";

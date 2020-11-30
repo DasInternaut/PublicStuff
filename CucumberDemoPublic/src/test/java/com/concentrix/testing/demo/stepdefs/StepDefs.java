@@ -113,4 +113,19 @@ public class StepDefs {
 				assertTrue(user.lookForSomeText(string));
 	}
 	
+	//Handling teardown at the end of the test run.
+	@Given("testing is complete")
+	public void testing_is_complete() {
+	    // Write code here that turns the phrase above into concrete actions
+	    System.out.println("******************** End of Gherkin Feature File. ********************");
+	    System.out.println("************************** Testing Complete. *************************");
+	    
+	}
+
+	@Then("we tear down")
+	public void we_tear_down() {
+	    // Write code here that turns the phrase above into concrete actions
+	    user.exterminate();
+	}
+	
 }

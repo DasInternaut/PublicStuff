@@ -42,6 +42,10 @@ Feature: Demonstrate Cucumber
 		And I enter "SK8 4HZ" into the "Post Code" field
 		When I click "Post Code Search"
 		Then I see "Glorious Sunshine"
+		
+	Scenario: End
+		Given testing is complete
+		Then we tear down
 
 # So how do we run this?  Quite simply run mvn clean verify 
 # (or right click on the POM and run verify in whatever IDE

@@ -52,6 +52,7 @@ public class WebAuto {
 
         if (isWindows()) {
             OS = "Windows";
+            chrome = chrome + ".exe";
         }
 
         System.out.println("The operating system is: " + OS);

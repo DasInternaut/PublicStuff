@@ -18,6 +18,8 @@ import com.concentrix.testing.demo.actor.Actor;
 //tests run in name order.  I guess my junit tests are a little more granular
 //than most.
 
+//17/12/2020 - Tested with Firefox on mac
+
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class JHT3st {
 

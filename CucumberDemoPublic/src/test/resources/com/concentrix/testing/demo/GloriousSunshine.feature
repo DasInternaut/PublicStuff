@@ -22,7 +22,7 @@ Feature: Demonstrate Cucumber
 #		Then I'm taken to the BBC News page
 
 	Scenario: Navigate to News2
-		Given I have a "Chrome" browser
+		Given I have a "Firefox" browser
 		And I've navigated to "https://www.bbc.co.uk"
 		When I click "News Link"
 		Then I'm taken to the BBC News page		

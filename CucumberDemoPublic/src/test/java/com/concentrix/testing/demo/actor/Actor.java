@@ -66,6 +66,14 @@ public class Actor {
 	public void navigateURL(String url) {
 		driver.get(url);
 	}
+
+	//Note: I can't stress enough that the approach below, stretched to all locators
+	//types and required element methods is going to potentially lead to some huge 
+	//case statements.  It's done this way, here, for clarity and because using 
+	//polymorthism is going drive a reader to abstraction.  However, polymorphism 
+	//is the way to go because the end result (when done well) is typically more
+	//robust, maintainable code with less of the kind of decision logic where defects
+	//like to hide.
 	
 	public boolean enterSomeText (String something, String text) {
 		String thing = elements.get(something);
